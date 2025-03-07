@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatchCart, useCart } from "./ContextReducer";
-// import { Dropdown, DropdownButton } from 'react-bootstrap';
 export default function Card(props) {
   let data = useCart();
 
@@ -9,11 +8,8 @@ export default function Card(props) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState("");
   const priceRef = useRef();
-  // const [btnEnable, setBtnEnable] = useState(false);
-  // let totval = 0
-  // let price = Object.values(options).map((value) => {
-  //   return parseInt(value, 10);
-  // });
+  const [isAdded, setIsAdded] = useState(false)
+
   let options = props.options;
   let priceOptions = Object.keys(options);
   let foodItem = props.item;
@@ -25,11 +21,14 @@ export default function Card(props) {
   };
   const handleQty = (e) => {
     setQty(e.target.value);
+    setIsAdded(false);
   };
   const handleOptions = (e) => {
     setSize(e.target.value);
+    setIsAdded(false);
   };
   const handleAddToCart = async () => {
+    setIsAdded(true);
     let food = [];
     for (const item of data) {
       if (item.id === foodItem._id) {
@@ -38,8 +37,6 @@ export default function Card(props) {
         break;
       }
     }
-    console.log(food);
-    console.log(new Date());
     if (food !== []) {
       if (food.size === size) {
         await dispatch({
@@ -85,66 +82,72 @@ export default function Card(props) {
   // checkBtn();
   //   },[data])
 
-  let finalPrice = qty * parseInt(options[size]); //This is where Price is changing
-  // totval += finalPrice;
-  // console.log(totval)
+  let finalPrice = qty * parseInt(options[size]);
+
   return (
-    <div>
-      <div className="card mt-3" style={{ width: "16rem", maxHeight: "360px" }}>
+    <div className="d-flex justify-content-center">
+      <div
+        className="card mt-4 shadow-sm border-0"
+        style={{ width: "18rem", maxHeight: "380px", borderRadius: "1rem", overflow: "hidden" }}
+      >
         <img
           src={props.ImgSrc}
           className="card-img-top"
-          alt="..."
-          style={{ height: "120px", objectFit: "fill" }}
+          alt={props.foodName}
+          style={{
+            height: "130px",
+            objectFit: "cover",
+          }}
         />
         <div className="card-body">
-          <h5 className="card-title">{props.foodName}</h5>
-          {/* <p className="card-text">This is some random text. This is description.</p> */}
-          <div className="container w-100 p-0" style={{ height: "38px" }}>
+          <h5 className="card-title fw-bold">{props.foodName}</h5>
+  
+          <div className="container w-100 p-0 my-3 d-flex align-items-center justify-content-between">
             <select
-              className="m-2 h-100 w-20 bg-danger text-black rounded"
-              style={{ select: "#FF0000" }}
+              className="form-select form-select-sm w-50 me-2 bg-white text-black border-0"
               onClick={handleClick}
               onChange={handleQty}
+              style={{ borderRadius: "0.5rem" }}
             >
-              {Array.from(Array(6), (e, i) => {
-                return (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
-                );
-              })}
+              {Array.from(Array(6), (_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  {i + 1}
+                </option>
+              ))}
             </select>
+  
             <select
-              className="m-2 h-100 w-20 bg-danger text-black rounded"
-              style={{ select: "#FF0000" }}
+              className="form-select form-select-sm w-50 ms-2 bg-white text-black border-0"
               ref={priceRef}
               onClick={handleClick}
               onChange={handleOptions}
+              style={{ borderRadius: "0.5rem" }}
             >
-              {priceOptions.map((i) => {
-                return (
-                  <option key={i} value={i}>
-                    {i}
-                  </option>
-                );
-              })}
+              {priceOptions.map((i) => (
+                <option key={i} value={i}>
+                  {i}
+                </option>
+              ))}
             </select>
-            <div className=" d-inline ms-2 h-100 w-20 fs-5">
-              ₹{finalPrice}/-
-            </div>
           </div>
-          <hr></hr>
+  
+          <div className="text-danger fw-bold fs-5 text-center my-2">
+            ₹{finalPrice}/-
+          </div>
+  
           <button
-            className={`btn btn-danger justify-center ms-2 `}
+            className={`btn w-100 ${isAdded ? "btn-danger" : "btn-success"} fw-bold`}
             onClick={handleAddToCart}
+            disabled={isAdded}
+            style={{ borderRadius: "0.5rem" }}
           >
-            Add to Cart
+            {!isAdded ? "Add to Cart" : "Added"}
           </button>
-          {/* <button className={`btn btn-danger justify-center ms-2 ${btnEnable ? "" : "disabled"}`} onClick={handleRemoveCart}>Remove</button> */}
         </div>
       </div>
     </div>
   );
+  
+
 }
 //

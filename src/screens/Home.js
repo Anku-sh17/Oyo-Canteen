@@ -3,6 +3,7 @@ import Card from "../components/Card";
 // import Carousel from '../components/Carousel'
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { Brightness1 } from "@mui/icons-material";
 
 export default function Home() {
   const [foodCat, setFoodCat] = useState([]);
@@ -28,7 +29,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-black">
+    <div style={{
+      backgroundImage:
+        'url("https://images.template.net/108153/food-banner-background-g4msl.png")',
+      backgroundSize: "cover"
+    }}>
       <div>
         <Navbar />
       </div>
@@ -42,7 +47,6 @@ export default function Home() {
             <div class=" carousel-caption  " style={{ zIndex: "9" }}>
               <div className=" d-flex justify-content-center">
                 {" "}
-                {/* justify-content-center, copy this <form> from navbar for search box */}
                 <input
                   className="form-control me-2 w-75 bg-white text-dark"
                   type="search"
@@ -65,7 +69,7 @@ export default function Home() {
             </div>
             <div className="carousel-item active">
               <img
-                src="https://source.unsplash.com/random/900x700/?burger"
+                src="https://images.pexels.com/photos/46239/salmon-dish-food-meal-46239.jpeg?cs=srgb&dl=close-up-cooking-dinner-46239.jpg&fm=jpg"
                 className="d-block w-100  "
                 style={{ filter: "brightness(30%)" }}
                 alt="..."
@@ -73,7 +77,7 @@ export default function Home() {
             </div>
             <div className="carousel-item">
               <img
-                src="https://source.unsplash.com/random/900x700/?pastry"
+                src="https://images7.alphacoders.com/368/368875.jpg"
                 className="d-block w-100 "
                 style={{ filter: "brightness(30%)" }}
                 alt="..."
@@ -81,7 +85,7 @@ export default function Home() {
             </div>
             <div className="carousel-item">
               <img
-                src="https://source.unsplash.com/random/900x700/?barbeque"
+                src="https://www.safehealthcenter.com/wp-content/uploads/2020/07/organic-food-for-healthy-nutrition-and-superfoods-EPFYH7J.jpg"
                 className="d-block w-100 "
                 style={{ filter: "brightness(30%)" }}
                 alt="..."
@@ -114,15 +118,13 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div className="container">
+      <div className="container" >
         {" "}
-        {/* boootstrap is mobile first */}
         {foodCat !== []
           ? foodCat.map((data) => {
               return (
-                // justify-content-center
                 <div className="row mb-3">
-                  <div key={data.id} className="fs-3 m-3 text-white">
+                  <div key={data.id} className="fs-3 m-3 text-black">
                     {data.CategoryName}
                   </div>
                   <hr
@@ -148,7 +150,6 @@ export default function Home() {
                             key={filterItems.id}
                             className="col-12 col-md-6 col-lg-3"
                           >
-                            {console.log(filterItems.url)}
                             <Card
                               foodName={filterItems.name}
                               item={filterItems}

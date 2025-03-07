@@ -10,7 +10,7 @@ export default function Footer() {
               href="/"
               className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
             ></a> */}
-            <span className="text-muted">
+            <span className="text-black">
               © 2023 <i>Oyo-Canteen</i>, Inc
             </span>
           </div>
