@@ -1,5 +1,16 @@
 .food-display{
-    margin-top: 30px;
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+}
+
+.food-display-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 100px;
+    padding: 20px 0;
 }
 
 .food-display h2{
@@ -13,4 +24,20 @@
     margin-top: 30px;
     gap: 30px;
     row-gap: 50px;
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 300px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #ff4500; /* Change to your theme color */
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+    border-color: #ff5722;
+    box-shadow: 0 0 5px rgba(255, 87, 34, 0.5);
 }
